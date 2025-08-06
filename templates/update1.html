@@ -1,0 +1,9 @@
+{% extends 'base1.html' %}
+{% block title %}Update Task{% endblock title %}
+{% block content %}
+<form class="todo-form" action="/update/{{ todo.sno }}" method="POST">
+    <input type="text" name="title" value="{{ todo.title }}" required>
+    <textarea name="desc">{{ todo.desc }}</textarea>
+    <button type="submit">💾 Save Task</button>
+</form>
+{% endblock %}

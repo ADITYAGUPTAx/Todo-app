@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block content %}
+<div class="container mt-2">
+    <h2>Add Your Tasks</h2>
+    <div class="container">
+        
+        <form action="/" method="POST">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Task</label>
+    <input type="text" class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Description</label>
+    <input type="text" class="form-control" name="desc" id="exampleInputPassword1">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div class ="mt-4">
+    <h3>Tasks</h3>
+</div>
+{% if alltodo|length == 0 %}
+  <div class="alert alert-info" role="alert" style="text-align: center;">
+    No Tasks Added Yet!
+  </div>
+{% else %}
+  <h3>Tasks</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Task</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in alltodo %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{ todo.title }}</td>
+        <td>{{ todo.desc }}</td>
+        <td>{{ todo.date }}</td>
+        <td>
+          <a href="/update/{{ todo.sno }}" type="button" class="btn btn-outline-primary btn-sm mx-1">Edit</a>
+          <a href="/delete/{{ todo.sno }}" type="button" class="btn btn-outline-primary btn-sm mx-1">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+  </tbody>
+</table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+ 
+{% endblock  %}

@@ -1,0 +1,43 @@
+{% extends 'base1.html' %}
+{% block title %}My Tasks{% endblock title %}
+{% block content %}
+<form class="todo-form" action="/" method="POST">
+    <input type="text" name="title" placeholder="Enter a title" required>
+    <textarea name="desc" placeholder="Add a description..."></textarea>
+    <button type="submit">➕ Add Task</button>
+</form>
+
+{% if alltodo|length == 0 %}
+    <p class="empty">📭 No tasks yet — write something in your notebook!</p>
+{% else %}
+<ul class="todo-list" id="sortable-list">
+    {% for todo in alltodo %}
+    <li class="todo-item typewriter">
+        <input type="checkbox" class="checkmark">
+        <div>
+            <h3>{{ todo.title }}</h3>
+            <p>{{ todo.desc }}</p>
+            <small>{{ todo.date.strftime('%b %d, %Y %I:%M %p') }}</small>
+        </div>
+        <div class="todo-actions">
+            <a href="/update/{{todo.sno}}">✏️ Edit</a>
+            <a href="/delete/{{todo.sno}}">❌ Delete</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<script>
+    // Drag and drop feature
+    const sortable = new Sortable(document.getElementById('sortable-list'), {
+        animation: 150
+    });
+
+    // Checkmark animation
+    document.querySelectorAll('.checkmark').forEach(box => {
+        box.addEventListener('change', () => {
+            box.closest('.todo-item').classList.toggle('done');
+        });
+    });
+</script>
+{% endblock %}
